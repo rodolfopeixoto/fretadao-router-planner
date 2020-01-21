@@ -1,0 +1,45 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.5-alpine
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+    environment:
+      PGDATA: /tmp
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rodolfo
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:5.0.7-alpine
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_PASSWORD: ''
+  app:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - "nfsmount:/app"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      REDIS_URL: redis://redis
+      DISPLAY: :0
+    stdin_open: true
+    tty: true
+    
+volumes:
+  db-data:
+  redis-data:
+  nfsmount:
+    driver: local
+    driver_opts:
+       type: nfs
+       o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+       device: ":$PWD"
