@@ -7,7 +7,8 @@ RUN apk add --no-cache --update build-base \
                                 postgresql-dev \
                                 nodejs \
                                 tzdata \
-                                mysql-dev                              
+                                mysql-dev \ 
+                                less                            
 
 RUN apk add --no-cache yarn --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" 
 RUN yarn -v
