@@ -4,7 +4,7 @@ module Api
       def create
         map = params[:logistic_meshes][:map]
         routes = params[:logistic_meshes][:routes]
-        binding.pry
+
         logistic_meshes_validator = LogisticMeshesValidator.call(map, routes)
         
         message = I18n.t('.logistic_meshes.create.invalid')
@@ -16,6 +16,24 @@ module Api
       end
     
       def search
+        map = params[:map]
+        source = params[:source]
+        destination = params[:destination]
+        autonomy_km = params[:autonomy_km]
+        amount_liter = params[:amount_liter]
+        
+        search_route_validator = SearchRouteValidator.call(map, source,
+                                                           destination,
+                                                           autonomy_km,
+                                                           amount_liter)
+        
+        message = I18n.t('.logistic_meshes.search.invalid')
+        return render json: message, status: :unprocessable_entity unless logistic_meshes_validator
+
+        search_route = SearchRouteService.call(map, source, destination, autonomy_km, amount_liter)
+        
+        render json: search_route, status: :ok
+        
       end
     
       def logistic_meshe_params
