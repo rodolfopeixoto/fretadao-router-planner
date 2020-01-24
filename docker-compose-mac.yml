@@ -31,6 +31,7 @@ services:
     environment:
       REDIS_URL: redis://redis
       DISPLAY: :0
+      RUBYOPT: '-W:no-deprecated -W:no-experimental'
     stdin_open: true
     tty: true
     

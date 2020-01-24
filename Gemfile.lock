@@ -232,8 +232,8 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    shoulda-matchers (3.1.1)
-      activesupport (>= 4.0.0)
+    shoulda-matchers (4.2.0)
+      activesupport (>= 4.2.0)
     simplecov (0.12.0)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -304,7 +304,7 @@ DEPENDENCIES
   rubocop (~> 0.79.0)
   sass-rails (>= 6)
   selenium-webdriver
-  shoulda-matchers (= 3.1.1)
+  shoulda-matchers (= 4.2.0)
   simplecov (= 0.12.0)
   spring
   spring-watcher-listen (~> 2.0.0)
