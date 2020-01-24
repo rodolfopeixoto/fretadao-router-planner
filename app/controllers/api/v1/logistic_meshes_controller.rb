@@ -8,10 +8,10 @@ module Api
         logistic_meshes_validator = LogisticMeshesValidator.call(map, routes)
         
         message = I18n.t('.logistic_meshes.create.invalid')
-        return render json: message, status: :unprocessable_entity unless logistic_meshes_validator
+        return json_response({message: message}, :unprocessable_entity) unless logistic_meshes_validator
         
-        logistic_meshe = LogisticMeshe.create(logistic_meshe_params)
-        logistic_meshes_serializer = LogisticMeshesSerializer.new(logistic_meshe)
+        logistic_mesh = LogisticMesh.create(logistic_mesh_params)
+        logistic_meshes_serializer = LogisticMeshesSerializer.new(logistic_mesh)
         render json: logistic_meshes_serializer, status: :created
       end
     
@@ -36,7 +36,7 @@ module Api
         
       end
     
-      def logistic_meshe_params
+      def logistic_mesh_params
         params.require(:logistic_meshes).permit(:map, routes: [])
       end
     end    

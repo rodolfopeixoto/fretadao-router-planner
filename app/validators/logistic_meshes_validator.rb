@@ -12,23 +12,25 @@ class LogisticMeshesValidator < ApplicationValidator
   end
 
   def call
-    return true if valid_routes?
-    false
+    return false if valid_routes.include?(false)
+    true
   end
 
   def valid_map?
     !map.empty? && map.match?(LETTERS_ONLY_REGEX)
   end
 
-  def valid_routes?
+  def valid_routes
     return false unless routes.kind_of?(Array)
     routes.map do |route|
-      route_array = route.split(' ')
-      false unless route.empty?
-      false unless valid_source_and_destination?(route_array) && valid_weigth?(route_array)
-      false unless valid_size?(route)
-      true
-    end.include?(false)
+      false unless valid_params?(route)
+    end
+  end
+
+  def valid_params?(route)
+    route_array = route.split(' ')
+    valid = valid_source_and_destination?(route_array) && valid_weigth?(route_array) 
+    !route.empty? && valid_size?(route_array) && valid
   end
 
   def valid_source_and_destination?(route)
