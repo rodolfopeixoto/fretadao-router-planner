@@ -21,10 +21,23 @@ describe 'Create logistic mesh and logistic mesh request API' do
       response '201', 'it creates logistic mesh when params are valid' do
         schema type: :object,
                properties: {
-                 id: { type: :integer },
-                 employee_id: { type: :integer },
-                 number: { type: :string },
-                 brand: { type: :string }
+                 data: {
+                   type: :object,
+                   properties: {
+                     id: { type: :string },
+                     type: { type: :string },
+                     attributes: {
+                       type: :object,
+                       properties: {
+                         map: { type: :string },
+                         routes: {
+                           type: :array,
+                           items: { type: :string }
+                         }
+                       }
+                     }
+                   }
+                 }
                }
 
         let!(:logistic_mesh) { FactoryBot.create(:logistic_mesh) }
@@ -42,22 +55,13 @@ describe 'Create logistic mesh and logistic mesh request API' do
       response '422', 'it does not create when params are invalid' do
         schema type: :object,
                properties: {
-                 errors: {
-                   type: :array,
-                   items: {
-                     type: :object,
-                     properties: {
-                       field: { type: :string },
-                       messages: { type: :array, items: { type: :string } }
-                     }
-                   }
-                 }
+                 message: { type: :string }
                }
         let!(:body) do
           {
             logistic_meshes: {
-              map: 'SP',
-              routes: ['2 2 2', 'A C 3', 'B D 2', 'B A 2', 'B E 5', 'C D 1',
+              map: 'SP54353453',
+              routes: ['2 2 2', 'A C 3', 'B D A', 'B A 2', 'B E 5', 'C D 1',
                        'C F 6', '2 1 3', 'D E 3', 'D F 5', 'F D 5', 'F C 6',
                        'F G 4', 'E B 5', 'E B 5', 'E D 3', 'E G 5', 'G F 4', 'G E 5']
             }

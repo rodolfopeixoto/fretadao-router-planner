@@ -1,4 +1,4 @@
-class LogisticMeshesValidator < ApplicationValidator
+class SearchRouteValidator < ApplicationValidator
   
   attr_reader :map, :source, :destination, :autonomy_km, :amount_liter
 
@@ -14,19 +14,14 @@ class LogisticMeshesValidator < ApplicationValidator
   end
 
   def call
-    return true if valid_params?
-    false
+    valid_fields? && fields_is_not_empty?
   end
 
   private
-  
-  def valid_params?
-    return false unless valid_source_and_destination?
-    return false unless valid_autonomy_km?
-    return false if fields_empty?
-    return false unless amount_liter.kind_of?(Float)
-    return false unless valid_map?
-    true
+
+  def valid_fields?
+    valid = valid_source_and_destination? && valid_autonomy_km?
+    valid && valid_map?
   end
   
   def valid_map?
@@ -41,7 +36,8 @@ class LogisticMeshesValidator < ApplicationValidator
     autonomy_km.match?(NUMBERS_ONLY_REGEX)
   end
 
-  def fields_empty?
-    autonomy_km.empty? || amount_liter.empty? || destination.empty? || source.empty?
+  def fields_is_not_empty?
+    valid = !autonomy_km.empty? || !amount_liter.empty? 
+    valid || !destination.empty? || !source.empty?
   end
 end
