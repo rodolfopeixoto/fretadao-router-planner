@@ -19,5 +19,5 @@ production:
   <<: *default
   database: fretadao_production
   host: localhost
-  username: username
+  username: <%= ENV['FRETADAO_DATABASE_USERNAME'] %>
   password: <%= ENV['FRETADAO_DATABASE_PASSWORD'] %>
