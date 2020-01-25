@@ -17,8 +17,7 @@ gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
-gem 'rswag',                    '~> 2.0'
-gem 'rspec-rails',              '3.5.2' # to generate /api-docs in production
+gem 'rswag'
 gem 'rack-cors'
 gem 'fast_jsonapi'
 gem 'interactor-rails', '~> 2.0'
@@ -53,6 +52,7 @@ group :development do
 end
 
 group :test do
+  gem 'rspec-rails', '3.5.2' # to generate /api-docs in production
   gem 'capybara', '>= 2.15'
   gem 'database_cleaner', '1.6.1'
   gem 'selenium-webdriver'

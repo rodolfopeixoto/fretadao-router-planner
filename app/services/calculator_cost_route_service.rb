@@ -1,5 +1,4 @@
 class CalculatorCostRouteService < ApplicationService
-
   attr_reader :total_distance, :autonomy_km, :amount_liter
 
   def initialize(total_distance, autonomy_km, amount_liter)
@@ -13,6 +12,6 @@ class CalculatorCostRouteService < ApplicationService
   end
 
   def calculator_cost
-    (total_distance  * amount_liter ) / autonomy_km
+    (total_distance * amount_liter) / autonomy_km
   end
 end

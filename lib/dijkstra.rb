@@ -1,5 +1,4 @@
 class Dijkstra
-
   attr_accessor :distance, :previous, :source, :nodes, :graph
 
   INFINITY = 999_999_999_999_999_999_999_999_999_999_999_999
@@ -48,7 +47,7 @@ class Dijkstra
 
       graph[current_node].keys.each do |vertex|
         sum_distances = distance[current_node] + graph[current_node][vertex]
-        update_distance_previous(vertex, sum_distances, current_node)  if sum_distances < distance[vertex]
+        update_distance_previous(vertex, sum_distances, current_node) if sum_distances < distance[vertex]
       end
 
     end

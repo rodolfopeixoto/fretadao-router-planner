@@ -300,7 +300,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 6.0.2, >= 6.0.2.1)
   rspec-rails (= 3.5.2)
-  rswag (~> 2.0)
+  rswag
   rubocop (~> 0.79.0)
   sass-rails (>= 6)
   selenium-webdriver

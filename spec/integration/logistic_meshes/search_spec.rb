@@ -2,7 +2,8 @@ require 'swagger_helper'
 
 describe 'search logistic mesh and logistic mesh request API' do
   path '/api/v1/logistic_meshes/search' do
-    get 'Search the logistic mesh request and logistic mesh if parameters are valid' do
+    get 'Search the logistic mesh' \
+        'request and logistic mesh if parameters are valid' do
       tags 'Api::V1::LogisticMeshes'
       consumes 'application/json'
       parameter name: :map,
@@ -30,6 +31,7 @@ describe 'search logistic mesh and logistic mesh request API' do
                 type: :string,
                 required: true,
                 description: 'Amount of liter: ex 2.50'
+
       response '200', 'it searchs logistic mesh when params are valid' do
         schema type: :object,
                properties: {
@@ -51,7 +53,7 @@ describe 'search logistic mesh and logistic mesh request API' do
                properties: {
                  message: { type: :string }
                }
-        
+
         let!(:logistic_mesh) { FactoryBot.create(:logistic_mesh) }
         let!(:map) { '3' }
         let!(:source) { 'A' }

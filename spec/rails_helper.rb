@@ -11,10 +11,10 @@ require 'support/factory_bot'
 require 'shoulda/matchers'
 
 rails_support_path = Rails.root.join('spec', 'support', '**', '*.rb')
-Dir[rails_support_path].each { |file| require file }
+Dir[rails_support_path].sort.each { |file| require file }
 SimpleCov.start
 
-Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 begin
   ActiveRecord::Migration.maintain_test_schema!

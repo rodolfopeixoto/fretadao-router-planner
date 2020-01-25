@@ -1,7 +1,6 @@
 require 'graph'
 
 class SearchRouteService < ApplicationService
-
   attr_reader :map,
               :source,
               :destination,
@@ -19,8 +18,7 @@ class SearchRouteService < ApplicationService
   end
 
   def call
-    routes = search_map.routes
-    create_graph(routes)
+    create_graph
     graph.shortest_path(source, destination)
     total_distance = graph.total_distance
     routes_result = graph.path.join(' ').upcase
@@ -34,7 +32,8 @@ class SearchRouteService < ApplicationService
     LogisticMesh.find_by(map: map)
   end
 
-  def create_graph(routes)
+  def create_graph
+    routes = search_map.routes
     routes.each do |route|
       route_splited = route.split(' ')
       source = route_splited[0]
