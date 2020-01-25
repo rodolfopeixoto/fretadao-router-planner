@@ -14,7 +14,7 @@ services:
     build: .
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
-      - "nfsmount:/app"
+      - .:/app
     ports:
       - "3000:3000"
     depends_on:
@@ -24,12 +24,5 @@ services:
       RUBYOPT: '-W:no-deprecated -W:no-experimental'
     stdin_open: true
     tty: true
-    
 volumes:
   db-data:
-  nfsmount:
-    driver: local
-    driver_opts:
-       type: nfs
-       o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
-       device: ":$PWD"

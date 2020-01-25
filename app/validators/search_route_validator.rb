@@ -5,12 +5,12 @@ class SearchRouteValidator < ApplicationValidator
   NUMBERS_ONLY_REGEX = /[0-9]/.freeze
   FLOAT_ONLY_REGEX = /\A[+-]?(\d\.\d+)?\Z/.freeze
 
-  def initialize(map, source, destination, autonomy_km, amount_liter)
-    @map = map
-    @source = source
-    @destination = destination
-    @autonomy_km = autonomy_km
-    @amount_liter = amount_liter
+  def initialize(options = {})
+    @map = options.fetch(:map)
+    @source = options.fetch(:source)
+    @destination = options.fetch(:destination)
+    @autonomy_km = options.fetch(:autonomy_km)
+    @amount_liter = options.fetch(:amount_liter)
   end
 
   def call
@@ -21,11 +21,7 @@ class SearchRouteValidator < ApplicationValidator
 
   def valid_fields?
     valid = valid_source_and_destination? && valid_autonomy_km?
-    valid && valid_map? && valid_amount_liter?
-  end
-
-  def valid_map?
-    !map.empty? && map.match?(LETTERS_ONLY_REGEX)
+    valid && valid_amount_liter?
   end
 
   def valid_source_and_destination?
