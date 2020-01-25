@@ -4,8 +4,6 @@
 
 Caso queira um passo a passo de instalação de como configurar o seu ambiente, pode consultar o site do [GoRails](https://gorails.com/setup/ubuntu/18.10).
 
-##### Heroku
-
 ##### Documentação da API: 
 
 [https://router-planner.herokuapp.com/api-docs](https://router-planner.herokuapp.com/api-docs)
@@ -16,67 +14,64 @@ Ruby Version: 2.5.7
 Postgres version: 9.5 or higher
 ```
 
-ou caso queira utilizar o docker, o projeto suporta, basta instalar o Docker e o Docker Compose, pode consultar o site do [Docker](https://docs.docker.com/compose/install/)
+##### Dependências
 
-#### Setup
+Para executar o projeto você precisará:
 
-Lembre-se de conferir o arquivo de `database.yml`.
+* Docker e o Docker Compose, pode consultar o site do [Docker](https://docs.docker.com/compose/install/)
 
-```sh
-$ cp config/database.yml.sample config/database.yml
-$ bin/setup
+## Setup the project
+
+1. Instale as dependências abaixo:
+2. `$ git clone git@github.com:rodolfopeixoto/fretadao-router-planner.git` - Clone o projeto
+3. `$ cd fretadao-router-planner` - Acesse a pasta do projeto
+4. Acesse a pasta `config/database.example.yml` e salve o nome como `database.yml` modifique para os dados do seu postgresql.
+Se você desejar utilizar o docker configure o `host: db`, caso seja local, será `host: localhost`. Para usar o docker
+o `database.example.yml`, já está configurado.
+
 ```
-
-Para utilizar o docker siga os passos abaixo:
-
-Configurar o `config/database.yml`, adicionando ao `host` o nome o serviço `db`
-```yml
-default: &default
-  adapter: postgresql
-  encoding: utf8
-  pool: <%= ENV.fetch("DB_POOL") || 5 %>
+adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: postgres
-  password: rodolfo
+  password: master
+  port: 5432
   host: db
-  reconnect: true
-```
-
-Para colocar o servidor online, utilize o comando no Linux e aguarde, será efetuado o download dos layers/images
-
-```sh
-  $ docker-compose up --build
-```
-
-O docker acaba sendo mais lento no Mac, então pode-se utilizar com o comando:
-
-```sh
-$ docker-compose -f docker-compose-mac.yml up --build
-```
-
-Para executar o `rubocop` ou `rspec spec`, você precisa estar com os containers em execução, execute o comando abaixo.
-
-```sh
-  $ docker exec -it fundacao-estudar_app_1 sh
-```
-O terminal estará disponível para executar os comandos abaixo:
-
-Executar o rubocop
 
 ```
- $ rubocop -a
-```
 
-Executar os testes
+5. `$ docker-compose build --no-cache` - Build as imagens do docker
+6. Cria um setup inicial, instala as dependências and executa os tests
+    - Primeira opção:
+      * `$ docker-compose up -d` - Start os containers em background
+      * `$ docker exec -it fretadao-router-planner_app_1 yarn` - Instalar as dependências
+      * `$ docker exec -it fretadao-router-planner_app_1 rake db:setup` - Execute database migrations
+      * `$ docker exec -it fretadao-router-planner_app_1 rspec` - Executar os specs para verificar se está tudo funcionando perfeitamente
+    - Outras opções: 
+      * `$ docker-compose run --rm app bash` - Run the container 
+      * `$ bin/setup` - Executar a database migrations
+      * `$ yarn` - Instalar as dependências 
+      * `$ rspec spec` - Executar os specs
+      * `$ exit` - Sair do container 
+      * `$ docker-compose up -d` - Iniciar o containers em background
 
-```
- $ rspec spec
-```
-Quando executamos o rspec, automaticamente o coverage é executado também, então podemos verificar a cobertura de testes, basta acessar a pasta `/coverage` na raiz do projeto e abrir o html `index.html` e estará disponível os arquivos que estão cobertos ou não.
+##### Mac usuários
 
+In case you are a mac user:
 
-```
-localhost:3000/api-docs
-```
+1. Executar `sh .docker_script_for_mac.sh`
+2. Use docker-compose-mac.yml to build your images
+
+##### Executar a application
+
+1. Open [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+
+##### Executar spec e o coverage
+
+- `$ docker exec -it fretadao-router-planner_app_1 rspec` to run the specs.
+
+- `$ docker exec -it fretadao-router-planner_app_1 rspec` para gerar o coverage report, então abra o arquivo `coverage/index.html` no navegador.
+
 
 #### Como usar a api da documentação
 
@@ -101,7 +96,7 @@ novo sistema visando sempre o menor custo.
 
 #### Input
 
-Para popular sua base de dados o sistema precisa expor um serviço (Webservice) que aceite o formato de malha logística (conforme exemplo abaixo), nesta mesma requisição o requisitante deverá informar um nome para este mapa. 
+Para popular sua base de dados o sistema precisa expor um serviço (appservice) que aceite o formato de malha logística (conforme exemplo abaixo), nesta mesma requisição o requisitante deverá informar um nome para este mapa. 
 
 É importante que os mapas sejam persistidos para evitar que a cada novo deploy todas as informações desapareçam. O formato de malha logística é bastante simples, cada linha mostra uma rota: ponto de origem, ponto de destino e distância entre os pontos em quilômetros, separados por espaços:
 

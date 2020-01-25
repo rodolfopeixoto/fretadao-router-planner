@@ -1,4 +1,4 @@
-class LogisticMeshesValidator < ApplicationValidator
+class LogisticMeshValidator < ApplicationValidator
   attr_reader :map, :routes
 
   LETTERS_ONLY_REGEX = /[a-zA-Z]/.freeze
@@ -16,10 +16,6 @@ class LogisticMeshesValidator < ApplicationValidator
     true
   end
 
-  def valid_map?
-    !map.empty? && map.match?(LETTERS_ONLY_REGEX)
-  end
-
   def valid_routes
     return false unless routes.is_a?(Array)
 
@@ -31,7 +27,16 @@ class LogisticMeshesValidator < ApplicationValidator
   def valid_params?(route)
     route_array = route.split(' ')
     valid = valid_source_and_destination?(route_array) && valid_weigth?(route_array)
-    !route.empty? && valid_size?(route_array) && valid
+    valid = valid && valid_size?(route_array) && valid_map?
+    valid && route_is_not_empty?(route)
+  end
+
+  def route_is_not_empty?(route)
+    !route.empty?
+  end
+
+  def valid_map?
+    !map.empty? && map.match?(LETTERS_ONLY_REGEX)
   end
 
   def valid_source_and_destination?(route)

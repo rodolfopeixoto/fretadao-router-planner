@@ -31,7 +31,7 @@ module Api
       def valid_create_route?
         @map = params[:logistic_meshes][:map].upcase
         @routes = params[:logistic_meshes][:routes].map(&:strip).map(&:upcase)
-        LogisticMeshesValidator.call(@map, @routes)
+        LogisticMeshValidator.call(@map, @routes)
       end
 
       def valid_search_route?
@@ -40,11 +40,11 @@ module Api
         @autonomy_km = params[:autonomy_km]
         @amount_liter = params[:amount_liter]
 
-        SearchRouteValidator.call(@map,
-                                  @source,
-                                  @destination,
-                                  @autonomy_km,
-                                  @amount_liter)
+        SearchRouteValidator.call(map: @map,
+                                  source: @source,
+                                  destination: @destination,
+                                  autonomy_km: @autonomy_km,
+                                  amount_liter: @amount_liter)
       end
 
       def map_present?(map)

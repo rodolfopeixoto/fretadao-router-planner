@@ -25,6 +25,12 @@ Layout/EmptyLineAfterGuardClause:
   Exclude:
     - 'bin/bundle'
 
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

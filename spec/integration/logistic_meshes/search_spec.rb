@@ -55,6 +55,21 @@ describe 'search logistic mesh and logistic mesh request API' do
                }
 
         let!(:logistic_mesh) { FactoryBot.create(:logistic_mesh) }
+        let!(:map) { 'SP' }
+        let!(:source) { 'A' }
+        let!(:destination) { '10' }
+        let!(:autonomy_km) { '10' }
+        let!(:amount_liter) { '2.5' }
+        run_test!
+      end
+
+      response '404', 'it does not search when params are invalid' do
+        schema type: :object,
+               properties: {
+                 message: { type: :string }
+               }
+
+        let!(:logistic_mesh) { FactoryBot.create(:logistic_mesh) }
         let!(:map) { '3' }
         let!(:source) { 'A' }
         let!(:destination) { '10' }

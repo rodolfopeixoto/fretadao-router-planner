@@ -12,7 +12,9 @@ require 'shoulda/matchers'
 
 rails_support_path = Rails.root.join('spec', 'support', '**', '*.rb')
 Dir[rails_support_path].sort.each { |file| require file }
-SimpleCov.start
+SimpleCov.start do
+  add_filter 'app/controllers/concerns/exception_handler.rb'
+end
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
