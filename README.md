@@ -4,9 +4,14 @@
 
 Caso queira um passo a passo de instalação de como configurar o seu ambiente, pode consultar o site do [GoRails](https://gorails.com/setup/ubuntu/18.10).
 
+##### Heroku
+
+[App no Heroku - Router Planner](https://router-planner.herokuapp.com)
+[Docs-Api](https://router-planner.herokuapp.com/api-docs)
+
 ```
 Rails Version: 6.0.2
-Ruby Version: 2.7
+Ruby Version: 2.5.7
 Postgres version: 9.5 or higher
 ```
 
