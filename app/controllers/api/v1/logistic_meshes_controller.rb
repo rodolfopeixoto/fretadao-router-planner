@@ -17,11 +17,11 @@ module Api
         return json_response({ message: 'Not Found Map' }, :not_found) unless map_present?(@map)
         return json_response({ message: message }, :unprocessable_entity) unless valid_search_route?
 
-        search_route = SearchRouteService.call(@map,
-                                               @source,
-                                               @destination,
-                                               @autonomy_km,
-                                               @amount_liter)
+        search_route = SearchRouteService.call(map: @map,
+                                               source: @source,
+                                               destination: @destination,
+                                               autonomy_km: @autonomy_km,
+                                               amount_liter: @amount_liter)
 
         render json: search_route, status: :ok
       end

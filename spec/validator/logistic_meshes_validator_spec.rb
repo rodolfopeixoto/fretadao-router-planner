@@ -7,7 +7,7 @@ RSpec.describe LogisticMeshValidator do
   describe '.call' do
     context 'when there are valid map and routes' do
       it 'return true' do
-        logistic_mesh_validator = LogisticMeshValidator.call(
+        logistic_mesh_validator = described_class.call(
           logistic_mesh[:map],
           logistic_mesh[:routes]
         )
@@ -16,7 +16,7 @@ RSpec.describe LogisticMeshValidator do
     end
     context 'when there are not valid map and routes' do
       it 'return true' do
-        logistic_mesh_validator = LogisticMeshValidator.call(
+        logistic_mesh_validator = described_class.call(
           logistic_mesh_fail[:map],
           logistic_mesh_fail[:routes]
         )

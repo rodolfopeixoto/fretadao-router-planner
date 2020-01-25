@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe SearchRouteValidator do
-  let!(:logistic_mesh) { FactoryBot.build(:logistic_mesh) }
+RSpec.describe SearchRouteService do
+  let!(:logistic_mesh) { FactoryBot.create(:logistic_mesh) }
   let!(:search_params) do
     {
       map: 'SP',
-      source: 'a',
-      destination: 'd',
+      source: 'A',
+      destination: 'G',
       autonomy_km: '10',
       amount_liter: '2.5'
     }
@@ -20,22 +20,22 @@ RSpec.describe SearchRouteValidator do
       amount_liter: 'a'
     }
   end
-
   describe '.call' do
     context 'when there are valid params' do
       it 'return true' do
-        search_validator = described_class.call(
+        search_service = described_class.call(
           search_params
         )
-        expect(search_validator).to be true
+        expect(search_service).to eq(routes: 'A B E G', cost: '3.0')
       end
     end
     context 'when there are not valid params' do
       it 'return true' do
-        search_validator = described_class.call(
-          search_params_fail
-        )
-        expect(search_validator).to be false
+        expect do
+          described_class.call(
+            search_params_fail
+          )
+        end .to raise_error('Map not found')
       end
     end
   end
