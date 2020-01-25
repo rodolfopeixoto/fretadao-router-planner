@@ -1,4 +1,8 @@
-class Api::V1::ApplicationController < ActionController::API
-  include Response
-  include ExceptionHandler
+module Api
+  module V1
+    class ApplicationController < ActionController::API
+      include Response
+      include ExceptionHandler
+    end
+  end
 end

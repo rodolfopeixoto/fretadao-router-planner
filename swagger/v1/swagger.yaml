@@ -1,5 +1,5 @@
 ---
-openapi: 3.0.1
+swagger: '2.0'
 info:
   title: API V1
   version: v1
@@ -20,10 +20,15 @@ paths:
         schema:
           type: object
           properties:
-            logistic_meshs:
-              type: array
-              items:
-                type: string
+            logistic_meshes:
+              type: object
+              properties:
+                map:
+                  type: string
+                routes:
+                  type: array
+                  items:
+                    type: string
       responses:
         '201':
           description: it creates logistic mesh when params are valid
@@ -55,7 +60,7 @@ paths:
                 type: string
   "/api/v1/logistic_meshes/search":
     get:
-      summary: Search the logistic mesh request and logistic mesh if parameters are
+      summary: Search the logistic meshrequest and logistic mesh if parameters are
         valid
       tags:
       - Api::V1::LogisticMeshes
@@ -88,7 +93,7 @@ paths:
         required: true
         description: 'Amount of liter: ex 2.50'
       responses:
-        '201':
+        '200':
           description: it searchs logistic mesh when params are valid
           schema:
             type: object
@@ -96,7 +101,7 @@ paths:
               routes:
                 type: string
               cost:
-                type: integer
+                type: string
         '422':
           description: it does not search when params are invalid
           schema:

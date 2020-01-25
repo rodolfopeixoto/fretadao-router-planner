@@ -12,9 +12,15 @@ describe 'Create logistic mesh and logistic mesh request API' do
                 schema: {
                   type: :object,
                   properties: {
-                    logistic_meshs: {
-                      type: :array,
-                      items: { type: :string }
+                    logistic_meshes: {
+                      type: :object,
+                      properties: {
+                        map: { type: :string },
+                        routes: {
+                          type: :array,
+                          items: { type: :string }
+                        }
+                      }
                     }
                   }
                 }
