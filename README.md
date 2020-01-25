@@ -6,8 +6,9 @@ Caso queira um passo a passo de instalação de como configurar o seu ambiente, 
 
 ##### Heroku
 
-[App no Heroku - Router Planner](https://router-planner.herokuapp.com)
-[Docs-Api](https://router-planner.herokuapp.com/api-docs)
+##### Documentação da API: 
+
+[https://router-planner.herokuapp.com/api-docs](https://router-planner.herokuapp.com/api-docs)
 
 ```
 Rails Version: 6.0.2
@@ -70,14 +71,24 @@ Executar os testes
 ```
  $ rspec spec
 ```
-Quando executamos o rspec, automaticamente o coverage é executado também, então podemos verificar a cobertura de testes, basta acessar a pasta coverage e abrir o html index.html e estará disponível os arquivos que estão cobertos ou não.
+Quando executamos o rspec, automaticamente o coverage é executado também, então podemos verificar a cobertura de testes, basta acessar a pasta `/coverage` na raiz do projeto e abrir o html `index.html` e estará disponível os arquivos que estão cobertos ou não.
 
 
 ```
 localhost:3000/api-docs
 ```
 
+#### Como usar a api da documentação
 
+[![Image from Gyazo](https://i.gyazo.com/7ffcd82bd8bec3288a8c9c30782ddac8.gif)](https://gyazo.com/7ffcd82bd8bec3288a8c9c30782ddac8)
+
+[![Image from Gyazo](https://i.gyazo.com/181595251dd9ffa8ae97c291151394ab.gif)](https://gyazo.com/181595251dd9ffa8ae97c291151394ab)
+
+[![Image from Gyazo](https://i.gyazo.com/ddf68e01db77530ed2d5044d6c5349a7.gif)](https://gyazo.com/ddf68e01db77530ed2d5044d6c5349a7)
+
+[![Image from Gyazo](https://i.gyazo.com/63dfcd1cc381a7813524527b01266806.gif)](https://gyazo.com/63dfcd1cc381a7813524527b01266806)
+
+[![Image from Gyazo](https://i.gyazo.com/9bf06dd94857623ce462970ef0385de1.gif)](https://gyazo.com/9bf06dd94857623ce462970ef0385de1)
 
 #### Descrição
 
