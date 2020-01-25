@@ -2,3 +2,5 @@ en:
   logistic_meshes:
     create:
       invalid: The fields passed are invalid, please check if the map is a String and the routes are in an array with origin, destination and weight.
+    search:
+      invalid: The fields passed are invalid, please check it.

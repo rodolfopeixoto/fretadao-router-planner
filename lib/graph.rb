@@ -1,3 +1,4 @@
+require 'dijkstra'
 class Graph
   attr_reader :graph, :graph_paths,
               :source, :nodes, :previous,
@@ -13,7 +14,6 @@ class Graph
     @graph_paths = []
     @distance = {}
     @previous = {}
-    @total_distance = 0
   end
 
   def connect(source, destination, weight)
@@ -44,9 +44,9 @@ class Graph
   def create_destionations(destination_finaly)
     find_path(destination_finaly)
 
-     total_distance = distance[destination_finaly] if distance[destination_finaly] != INFINITY
-     total_distance = 'no path' if distance[destination_finaly].eql? INFINITY
+     @total_distance = distance[destination_finaly] if distance[destination_finaly] != INFINITY
+     @total_distance = 'no path' if distance[destination_finaly].eql? INFINITY
 
-     graph_paths.push("#{path.join(' ')} #{total_distance}")
+     graph_paths.push("#{path.join(' ')} #{@total_distance}")
   end
 end

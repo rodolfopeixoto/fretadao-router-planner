@@ -21,14 +21,14 @@ module Api
         destination = params[:destination]
         autonomy_km = params[:autonomy_km]
         amount_liter = params[:amount_liter]
-        
+ 
         search_route_validator = SearchRouteValidator.call(map, source,
                                                            destination,
                                                            autonomy_km,
                                                            amount_liter)
         
         message = I18n.t('.logistic_meshes.search.invalid')
-        return render json: message, status: :unprocessable_entity unless logistic_meshes_validator
+        return json_response({message: message}, :unprocessable_entity) unless search_route_validator
 
         search_route = SearchRouteService.call(map, source, destination, autonomy_km, amount_liter)
         

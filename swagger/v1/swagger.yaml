@@ -1,0 +1,106 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/logistic_meshes":
+    post:
+      summary: Create the logistic mesh request and logistic mesh if parameters are
+        valid
+      tags:
+      - Api::V1::LogisticMeshes
+      consumes:
+      - application/json
+      parameters:
+      - name: body
+        in: body
+        required: true
+        description: It creates the logistic mesh request and also
+        schema:
+          type: object
+          properties:
+            logistic_meshs:
+              type: array
+              items:
+                type: string
+      responses:
+        '201':
+          description: it creates logistic mesh when params are valid
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  type:
+                    type: string
+                  attributes:
+                    type: object
+                    properties:
+                      map:
+                        type: string
+                      routes:
+                        type: array
+                        items:
+                          type: string
+        '422':
+          description: it does not create when params are invalid
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  "/api/v1/logistic_meshes/search":
+    get:
+      summary: Search the logistic mesh request and logistic mesh if parameters are
+        valid
+      tags:
+      - Api::V1::LogisticMeshes
+      consumes:
+      - application/json
+      parameters:
+      - name: map
+        in: query
+        type: string
+        required: true
+        description: 'Map: ex: SP'
+      - name: source
+        in: query
+        type: string
+        required: true
+        description: 'Source: ex: A'
+      - name: destination
+        in: query
+        type: string
+        required: true
+        description: 'Destination: ex: B'
+      - name: autonomy_km
+        in: query
+        type: string
+        required: true
+        description: 'Autonomy in KM/L: ex 10'
+      - name: amount_liter
+        in: query
+        type: string
+        required: true
+        description: 'Amount of liter: ex 2.50'
+      responses:
+        '201':
+          description: it searchs logistic mesh when params are valid
+          schema:
+            type: object
+            properties:
+              routes:
+                type: string
+              cost:
+                type: integer
+        '422':
+          description: it does not search when params are invalid
+          schema:
+            type: object
+            properties:
+              message:
+                type: string

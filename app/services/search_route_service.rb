@@ -1,17 +1,21 @@
+require 'graph'
+
 class SearchRouteService < ApplicationService
 
   attr_reader :map,
               :source,
               :destination,
               :amount_liter,
-              :autonomy_km
+              :autonomy_km,
+              :graph
 
   def initialize(map, source, destination, autonomy_km, amount_liter)
     @map = map
     @source = source
     @destination = destination
     @autonomy_km = autonomy_km
-    @amount_liter
+    @amount_liter = amount_liter
+    @graph = Graph.new
   end
 
   def call
@@ -31,11 +35,11 @@ class SearchRouteService < ApplicationService
   end
 
   def create_graph(routes)
-    graph = Graph.new
     routes.each do |route|
-      source = route[0]
-      destination = route[1]
-      weight = route[2]
+      route_splited = route.split(' ')
+      source = route_splited[0]
+      destination = route_splited[1]
+      weight = route_splited[2].to_i
       graph.add_edge source, destination, weight
     end
   end
